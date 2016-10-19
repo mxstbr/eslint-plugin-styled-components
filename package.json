@@ -4,7 +4,7 @@
   "description": "ESLint plugin for styled-components",
   "main": "lib/index.js",
   "scripts": {
-    "test": "mocha tests/**/*.js",
+    "test": "mocha tests/**/*.js --compilers js:babel-core/register",
     "prepublish": "babel ./rules --out-dir ./lib"
   },
   "keywords": [
@@ -18,7 +18,7 @@
     "babel-eslint": "^7.0.0",
     "babel-preset-latest": "^6.16.0",
     "babel-preset-stage-0": "^6.16.0",
-    "eslint": "^0.22.1",
+    "eslint": "^2.8.0",
     "eslint-tester": "^0.7.0",
     "mocha": "^2.2.5"
   },
