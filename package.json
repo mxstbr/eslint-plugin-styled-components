@@ -2,9 +2,10 @@
   "name": "eslint-plugin-styled-components",
   "version": "0.0.1",
   "description": "ESLint plugin for styled-components",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "test": "mocha tests/**/*.js"
+    "test": "mocha tests/**/*.js",
+    "prepublish": "babel ./rules --out-dir ./lib"
   },
   "keywords": [
     "eslint",
@@ -13,11 +14,25 @@
   ],
   "license": "MIT",
   "devDependencies": {
+    "babel-cli": "^6.16.0",
+    "babel-eslint": "^7.0.0",
+    "babel-preset-latest": "^6.16.0",
+    "babel-preset-stage-0": "^6.16.0",
     "eslint": "^0.22.1",
     "eslint-tester": "^0.7.0",
     "mocha": "^2.2.5"
   },
   "peerDependencies": {
-    "eslint": ">=0.8.0"
+    "eslint": ">=0.8.0",
+    "styled-components": "^1.0.0"
+  },
+  "dependencies": {
+    "stylelint": "^7.4.2"
+  },
+  "babel": {
+    "presets": [
+      "latest",
+      "stage-0"
+    ]
   }
 }

@@ -1,4 +1,4 @@
-var lintCSS = require('./rules/lint-css');
+var lintCSS = require('./lint-css');
 
 module.exports = {
   rules: {
