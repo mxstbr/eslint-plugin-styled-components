@@ -1,4 +1,5 @@
 const stylelint = require('stylelint')
+const deasync = require('deasync')
 
 const helperMethods = ['keyframes', 'injectGlobal', 'css']
 
@@ -6,20 +7,35 @@ const isHelper = (node) => node.tag.type === 'Identifier' && helperMethods.inclu
 
 const isStyledTagname = (node) => node.tag.type === 'MemberExpression' && node.tag.object.name === 'styled' && node.tag.property.type === 'Identifier'
 
+function lintAsync(options, callback) {
+	stylelint.lint(options)
+		.then(result => {
+			callback(null, result)
+		})
+		.catch(error => {
+			callback(error)
+		})
+}
+
+const lint = deasync(lintAsync)
+
 module.exports = {
 	create(context) {
 		const options = context.options[0]
 
-	  return {
+		return {
 			TaggedTemplateExpression(node) {
 				if(isStyledTagname(node)) {
-					// This doesn't work because this function _needs_ to return sync :(
-					stylelint.lint({
-						code: node.quasi.quasis[0].value.raw,
-						config: options.stylelint,
-					}).then().catch()
+					try {
+						lint({
+							code: node.quasi.quasis[0].value.raw,
+							config: options.stylelint,
+						})
+					} catch (error) {
+						//
+					}
 				}
 			}
-		};
+		}
 	},
 }
